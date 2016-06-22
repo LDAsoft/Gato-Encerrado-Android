@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import domain.Laberinto;
+
 /**
  * Created by B032679 on 20/06/2016.
  */

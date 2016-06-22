@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import domain.Laberinto;
+
 public class LaberintosListActivity extends AppCompatActivity
         implements LaberintosListFragment.Callbacks {
 
@@ -29,9 +31,13 @@ public class LaberintosListActivity extends AppCompatActivity
     public void onItemSelected(Laberinto laberinto) {
         if (mTwoPane) {
             Bundle arguments = new Bundle();
+
             arguments.putSerializable(LaberintosDetailFragment.ARG_ITEM_ID, laberinto);
+
             LaberintosDetailFragment fragment = new LaberintosDetailFragment();
+
             fragment.setArguments(arguments);
+
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.laberinto_detail_container, fragment)
                     .commit();

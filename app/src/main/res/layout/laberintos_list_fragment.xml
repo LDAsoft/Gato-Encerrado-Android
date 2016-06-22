@@ -3,19 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <ListView
         android:id="@android:id/list"
         android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="356dp"
+        android:layout_height="398dp" >
     </ListView>
 
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </TextView>
+    <Button
+        android:layout_width="238dp"
+        android:layout_height="wrap_content"
+        android:text="Gestionar Inventario"
+        android:id="@+id/button_Inventario"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.49"
+        android:clickable="true"
+        android:enabled="true"
+        android:nestedScrollingEnabled="false"
+        />
 
 </LinearLayout>
