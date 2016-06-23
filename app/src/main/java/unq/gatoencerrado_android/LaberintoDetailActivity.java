@@ -12,7 +12,7 @@ public class LaberintoDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.laberinto_detail_activity);
+        setContentView(R.layout.activity_laberinto_detail);
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();

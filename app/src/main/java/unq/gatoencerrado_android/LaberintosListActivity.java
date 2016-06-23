@@ -15,14 +15,14 @@ public class LaberintosListActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.laberintos_list_activity);
+        setContentView(R.layout.activity_laberinto_list);
 
-        if (findViewById(R.id.laberinto_detail_container) != null) {
+//        if (findViewById(R.id.laberinto_detail_container) != null) {
 
-            mTwoPane = true;
-            ((LaberintosListFragment) getSupportFragmentManager().findFragmentById(R.id.laberinto_list))
-                    .setActivateOnItemClick(true);
-        }
+  //          mTwoPane = true;
+    //        ((LaberintosListFragment) getSupportFragmentManager().findFragmentById(R.id.laberinto_list))
+      //              .setActivateOnItemClick(true);
+        //}
     }
 
 
