@@ -20,8 +20,7 @@ public class LaberintosListActivity extends AppCompatActivity
         if (findViewById(R.id.laberinto_detail_container) != null) {
 
             mTwoPane = true;
-            ((LaberintosListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.laberinto_list))
+            ((LaberintosListFragment) getSupportFragmentManager().findFragmentById(R.id.laberinto_list))
                     .setActivateOnItemClick(true);
         }
     }
@@ -38,9 +37,9 @@ public class LaberintosListActivity extends AppCompatActivity
 
             fragment.setArguments(arguments);
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.laberinto_detail_container, fragment)
-                    .commit();
+            //getSupportFragmentManager().beginTransaction()
+             //       .replace(R.id.laberinto_detail_container, fragment)
+             //       .commit();
 
         } else {
             Intent detailIntent = new Intent(this, LaberintoDetailActivity.class);

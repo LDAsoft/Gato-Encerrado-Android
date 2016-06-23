@@ -23,7 +23,7 @@ public class LaberintoDetailActivity extends AppCompatActivity {
 
             fragment.setArguments(arguments);
 
-            getSupportFragmentManager().beginTransaction().add(R.id.laberinto_detail_container, fragment).commit();
+            //getSupportFragmentManager().beginTransaction().add(R.id.laberinto_detail_container, fragment).commit();
         }
 
     }
