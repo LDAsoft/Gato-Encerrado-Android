@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Laberinto Application</string>
+    <string name="app_name">Laberintos Disponibles</string>
+    <string name="title_laberinto_detail">Detalle Laberinto</string>
+    <string name="title_inventario">Tu Inventario</string>
 </resources>
