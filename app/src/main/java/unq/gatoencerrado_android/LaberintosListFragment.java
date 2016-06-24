@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import domain.Laberinto;
+import adapter.LaberintoAdapter;
 import service.LaberintosService;
 
 import retrofit.Call;
@@ -69,7 +70,7 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
         // IMPORTANTE
         // Por un bug de retrofit 2.0, la BASE_URL debe tener una / al final
         // y la dirección del service debe comenzar sin /, como un path relativo
-        String BASE_URL = "http://192.168.1.35:8080/gato-encerrado-rest/";
+        String BASE_URL = "http://192.168.1.38:9000/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -77,31 +78,6 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
                 .build();
 
         laberintosService = retrofit.create(LaberintosService.class);
-    }
-
-    private void buscarPeliculas() {
-        EditText campoBusqueda = (EditText) this.getView().findViewById(R.id.tituloContiene);
-        String titulo = campoBusqueda.getText().toString();
-
-        Call<List<Pelicula>> peliculaCall = peliculaService.getPeliculas(titulo);
-
-        peliculaCall.enqueue(new Callback<List<Pelicula>>() {
-            @Override
-            public void onResponse(Response<List<Pelicula>> response, Retrofit retrofit) {
-                List<Pelicula> peliculas = response.body();
-
-                setListAdapter(new PeliculaAdapter(
-                        getActivity(),
-                        peliculas));
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                t.printStackTrace();
-                Log.e("PeliculasApp", t.getMessage());
-            }
-        });
     }
 
     @Override
@@ -118,43 +94,6 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
-
-        // Comportamiento del checkbox que indica si se busca a medida que se escribe
-        final CheckBox chkBuscar = (CheckBox) view.findViewById(R.id.chkBuscarOnline);
-        final View myView = view;
-        chkBuscar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageButton btnBuscar = (ImageButton) myView.findViewById(R.id.btnBuscar);
-                if (chkBuscar.isChecked()) {
-                    btnBuscar.setVisibility(View.INVISIBLE);
-                } else {
-                    btnBuscar.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        // Comportamiento del título de búsqueda
-        EditText tituloContiene = (EditText) view.findViewById(R.id.tituloContiene);
-        tituloContiene.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (chkBuscar.isChecked() && editable.length() >= MIN_BUSQUEDA_PELICULAS) {
-                    buscarPeliculas();
-                }
-            }
-        });
-
-        ((ImageButton) view.findViewById(R.id.btnBuscar)).setOnClickListener(this);
     }
 
     @Override
@@ -181,12 +120,10 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        Pelicula pelicula = (Pelicula) listView.getAdapter().getItem(position);
-        Toast.makeText(getContext(), pelicula.getTitulo(), Toast.LENGTH_LONG).show();
+        Laberinto laberinto = (Laberinto) listView.getAdapter().getItem(position);
+        Toast.makeText(getContext(), laberinto.getNombre(), Toast.LENGTH_LONG).show();
 
-        mCallbacks.onItemSelected(pelicula);
-
-
+        mCallbacks.onItemSelected(laberinto);
     }
 
     @Override
@@ -212,7 +149,8 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.pelicula_list_fragment, null, false);
+        cargarLaberintos();
+        return inflater.inflate(R.layout.laberinto_list_fragment, null, false);
     }
 
     private void setActivatedPosition(int position) {
@@ -225,9 +163,29 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
         mActivatedPosition = position;
     }
 
-    @Override
-    public void onClick(View v) {
-        buscarPeliculas();
+    private void cargarLaberintos() {
+        //aca podria poner un textview paara poner el id de usuario y buscar
+        // EditText campoBusqueda = (EditText) this.getView().findViewById(R.id.tituloContiene);
+        ////String titulo = campoBusqueda.getText().toString();
+        //String nombreLaberinto = campoBusqueda.getText().toString();
+
+        Call<List<Laberinto>> laberintoCall = laberintosService.getLaberintos("1");
+
+        laberintoCall.enqueue(new Callback<List<Laberinto>>() {
+            @Override
+            public void onResponse(Response<List<Laberinto>> response, Retrofit retrofit) {
+                List<Laberinto> laberintos = response.body();
+
+                setListAdapter(new LaberintoAdapter(getActivity(),laberintos));
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+                Log.e("PeliculasApp", t.getMessage());
+            }
+        });
     }
 
-    }
+}

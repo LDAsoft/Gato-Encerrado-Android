@@ -9,11 +9,14 @@ public class Laberinto implements Serializable {
 
     String nombre;
     String descripcion;
+    Long id;
 
     public Laberinto(){
         this.nombre = "NOMBRE LABERINTO";
         this.descripcion = "DESCRIPCION LABERINTO";
     }
+
+    public Long getId() {return id;}
 
     public String getNombre() {
         return this.nombre;

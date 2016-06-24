@@ -9,7 +9,17 @@
         android:id="@+id/fragment1"
         android:name="unq.gatoencerrado_android.LaberintosListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="450dp" />
+
+    <Button
+        android:layout_width="238dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btnInventario"
+        android:id="@+id/button_Inventario"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:enabled="true"
+        android:nestedScrollingEnabled="false" />
 
 </LinearLayout>
 

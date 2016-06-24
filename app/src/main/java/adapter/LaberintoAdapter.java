@@ -15,13 +15,12 @@ import unq.gatoencerrado_android.R;
 /**
  * Created by B032679 on 22/06/2016.
  */
-public class LaberintoAdapter{
-        //extends ArrayAdapter<Laberinto> {
+public class LaberintoAdapter extends ArrayAdapter<Laberinto> {
 
     public LaberintoAdapter(Context context, List<Laberinto> laberintos) {
-        /* super(context, R.layout.laberinto_row, laberintos); */
+        super(context, R.layout.laberinto_row, laberintos);
     }
-/*
+
     @Override
     public long getItemId(int position) {
         return getItem(position).getId();
@@ -35,16 +34,15 @@ public class LaberintoAdapter{
 
         final Laberinto laberinto = getItem(position);
 
-        TextView tvPelicula = (TextView) rowView.findViewById(R.id.lblPelicula);
+        TextView tvLberinto = (TextView) rowView.findViewById(R.id.lblNombreLaberinto);
 
-        tvPelicula.setText(laberinto.toString());
+        tvLberinto.setText(laberinto.toString());
 
-        TextView tvActores = (TextView) rowView.findViewById(R.id.lblActores);
+        TextView tvDescripcion = (TextView) rowView.findViewById(R.id.lblDescripcion);
 
-        tvActores.setText(laberinto.getActores());
+        tvDescripcion.setText(laberinto.getDescripcion());
 
         return rowView;
     }
-*/
 
 }
