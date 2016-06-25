@@ -80,6 +80,8 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
         laberintosService = retrofit.create(LaberintosService.class);
     }
 
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -164,12 +166,10 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
     }
 
     private void cargarLaberintos() {
-        //aca podria poner un textview paara poner el id de usuario y buscar
-        // EditText campoBusqueda = (EditText) this.getView().findViewById(R.id.tituloContiene);
-        ////String titulo = campoBusqueda.getText().toString();
-        //String nombreLaberinto = campoBusqueda.getText().toString();
+        EditText campoBusqueda = (EditText) this.getView().findViewById(R.id.idLaberintoBusqueda);
+        String idLaberinto = campoBusqueda.getText().toString();
 
-        Call<List<Laberinto>> laberintoCall = laberintosService.getLaberintos("1");
+        Call<List<Laberinto>> laberintoCall = laberintosService.getLaberintos(idLaberinto);
 
         laberintoCall.enqueue(new Callback<List<Laberinto>>() {
             @Override
@@ -183,7 +183,7 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
             @Override
             public void onFailure(Throwable t) {
                 t.printStackTrace();
-                Log.e("PeliculasApp", t.getMessage());
+                Log.e("app", t.getMessage());
             }
         });
     }

@@ -18,7 +18,7 @@ import unq.gatoencerrado_android.R;
 public class LaberintoAdapter extends ArrayAdapter<Laberinto> {
 
     public LaberintoAdapter(Context context, List<Laberinto> laberintos) {
-        super(context, R.layout.laberinto_row, laberintos);
+        super(context, R.layout.activity_laberinto_detail, laberintos);
     }
 
     @Override

@@ -9,7 +9,8 @@
         android:text="New Text"
         android:id="@+id/nombre_laberinto"
         android:layout_above="@+id/imagen_laberinto"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        tools:context=".LaberintoDetailFragment"/>
 
 
     <ImageView
@@ -20,7 +21,8 @@
         android:layout_above="@+id/descripcion_laberinto"
         android:layout_alignLeft="@+id/descripcion_laberinto"
         android:layout_alignStart="@+id/descripcion_laberinto"
-        android:layout_marginBottom="64dp" />
+        android:layout_marginBottom="64dp"
+        tools:context=".LaberintoDetailFragment"/>
 
     <TextView
         android:layout_width="250dp"
@@ -31,7 +33,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="33dp"
         android:allowUndo="false"
-        android:autoText="false"
         android:enabled="false"
         tools:context=".LaberintoDetailFragment"/>
 
