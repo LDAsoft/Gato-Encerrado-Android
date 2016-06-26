@@ -7,12 +7,13 @@
     android:orientation="vertical"
     tools:context=".LaberintoDetailActivity">
 
-    <fragment
-        android:id="@+id/fragment1"
+    <Frame
+        android:id="@+id/laberinto_detail_container"
         android:name="unq.gatoencerrado_android.LaberintosDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        tools:layout="@layout/laberinto_detail_fragment" />
+
+        />
 
 </LinearLayout>
 

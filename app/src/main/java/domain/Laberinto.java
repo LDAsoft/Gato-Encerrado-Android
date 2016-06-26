@@ -9,12 +9,12 @@ public class Laberinto implements Serializable {
 
     String nombre;
     String descripcion;
-    Long id;
+    Integer id;
 
     public Laberinto(){
     }
 
-    public Long getId() {return id;}
+    public Integer getId() {return id;}
 
     public String getNombre() {
         return this.nombre;

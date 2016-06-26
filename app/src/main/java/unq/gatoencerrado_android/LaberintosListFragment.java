@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import adapter.InventarioAdapter;
+import domain.Inventario;
 import domain.Laberinto;
 import adapter.LaberintoAdapter;
 import service.LaberintosService;
@@ -32,16 +34,15 @@ import retrofit.Retrofit;
  */
 public class LaberintosListFragment extends ListFragment implements View.OnClickListener {
 
-    //Only used on tablets.
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
-    //Only used on tablets.
+
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
     private Callbacks mCallbacks = sDummyCallbacks;
     private LaberintosService laberintosService;
 
     public interface Callbacks {
-        void onItemSelected(Laberinto laberinto);
+        void onItemSelected(Integer laberintoId);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(Laberinto laberinto) {
+        public void onItemSelected(Integer laberintoId) {
         }
     };
 
@@ -80,8 +81,6 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
         laberintosService = retrofit.create(LaberintosService.class);
     }
 
-
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -91,7 +90,6 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Restore the previously serialized activated item position.
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
@@ -99,22 +97,9 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof Callbacks)) {
-            throw new IllegalStateException("Activity must implement fragment's callbacks.");
-        }
-
-        mCallbacks = (Callbacks) activity;
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
 
-        // Reset the active callbacks interface to the dummy implementation.
         mCallbacks = sDummyCallbacks;
     }
 
@@ -125,34 +110,21 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
         Laberinto laberinto = (Laberinto) listView.getAdapter().getItem(position);
         Toast.makeText(getContext(), laberinto.getNombre(), Toast.LENGTH_LONG).show();
 
-        mCallbacks.onItemSelected(laberinto);
+        mCallbacks.onItemSelected(laberinto.getId());
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mActivatedPosition != ListView.INVALID_POSITION) {
-            // Serialize and persist the activated item position.
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
-    }
-
-    /**
-     * Turns on activate-on-click mode. When this mode is on, list items will be
-     * given the 'activated' state when touched.
-     */
-    public void setActivateOnItemClick(boolean activateOnItemClick) {
-        // When setting CHOICE_MODE_SINGLE, ListView will automatically
-        // give items the 'activated' state when touched.
-        getListView().setChoiceMode(activateOnItemClick
-                ? ListView.CHOICE_MODE_SINGLE
-                : ListView.CHOICE_MODE_NONE);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         cargarLaberintos();
-        return inflater.inflate(R.layout.laberinto_list_fragment, null, false);
+        return inflater.inflate(R.layout.laberinto_list_fragment, container, false);
     }
 
     private void setActivatedPosition(int position) {
@@ -166,12 +138,14 @@ public class LaberintosListFragment extends ListFragment implements View.OnClick
     }
 
     private void cargarLaberintos() {
-        EditText campoBusqueda = (EditText) this.getView().findViewById(R.id.idLaberintoBusqueda);
-        String idLaberinto = campoBusqueda.getText().toString();
 
-        Call<List<Laberinto>> laberintoCall = laberintosService.getLaberintos(idLaberinto);
+        //EditText campoBusqueda = (EditText) this.getView().findViewById(R.id.idLaberintoBusqueda);
+        //String idLaberinto = campoBusqueda.getText().toString();
+
+        Call<List<Laberinto>> laberintoCall = laberintosService.getLaberintos("1");
 
         laberintoCall.enqueue(new Callback<List<Laberinto>>() {
+
             @Override
             public void onResponse(Response<List<Laberinto>> response, Retrofit retrofit) {
                 List<Laberinto> laberintos = response.body();
